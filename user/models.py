@@ -32,21 +32,14 @@ class UserManager(BaseUserManager):
         return self._create_user(email, password, **extra_fields)
 
 
-class Location(models.Model):
-    country = models.CharField(max_length=255)
-    city = models.CharField(max_length=255)
-
-
 class User(AbstractUser):
     avatar = models.ImageField(
         null=True,
         blank=True,
         upload_to="images/avatar/",
     )
-    lives_in = models. ForeignKey(
-        Location,
-        on_delete=models.CASCADE,
-        related_name="users",
+    lives_in = models. CharField(
+        max_length=255,
         null=True,
         blank=True,
     )
@@ -58,7 +51,7 @@ class User(AbstractUser):
         null=True,
         blank=True,
     )
-    date_of_joining = models.DateTimeField(
+    date_of_joining = models.DateField(
         auto_now_add=True,
     )
     username = None
@@ -76,16 +69,14 @@ class User(AbstractUser):
 class UserFollowing(models.Model):
     user_id = models.ForeignKey(
         User,
-        related_name="users",
+        related_name="following",
         on_delete=models.CASCADE,
     )
     user_following = models.ForeignKey(
         User,
-        related_name="users",
+        related_name="followers",
         on_delete=models.CASCADE,
     )
 
     class Meta:
-        unique_together = (("user_id", "following_user_id"),)
-        index_together = (("user_id", "user_following"),)
-        ordering = ["user.first_name"]
+        unique_together = (("user_id", "user_following"),)
