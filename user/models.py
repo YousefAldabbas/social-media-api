@@ -50,7 +50,7 @@ class User(AbstractUser):
         null=True,
         blank=True,
     )
-    date_of_birth = models.DateField(
+    birthday = models.DateField(
         null=True,
         blank=True,
     )
