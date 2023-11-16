@@ -11,6 +11,7 @@ class UserSerializer(serializers.ModelSerializer):
             "id",
             "email",
             "password",
+            "nickname",
             "first_name",
             "last_name",
             "avatar",
@@ -47,6 +48,7 @@ class UserListSerializer(UserSerializer):
             "id",
             "email",
             "password",
+            "nickname",
             "first_name",
             "last_name",
             "avatar",
@@ -73,6 +75,7 @@ class UserDetailSerializer(UserSerializer):
             "id",
             "email",
             "password",
+            "nickname",
             "first_name",
             "last_name",
             "avatar",
@@ -101,6 +104,9 @@ class UserDetailSerializer(UserSerializer):
 class UserFollowingSerializer(serializers.ModelSerializer):
     id = serializers.ReadOnlyField(
         source="user_following.id")
+    nickname = serializers.ReadOnlyField(
+        source="user_id.nickname",
+    )
     first_name = serializers.ReadOnlyField(
         source="user_following.first_name",
     )
@@ -112,12 +118,16 @@ class UserFollowingSerializer(serializers.ModelSerializer):
         model = UserFollowing
         fields = (
             "id",
+            "nickname",
             "first_name",
             "last_name",
         )
 
 
 class UserFollowersSerializer(serializers.ModelSerializer):
+    nickname = serializers.ReadOnlyField(
+        source="user_id.nickname",
+    )
     first_name = serializers.ReadOnlyField(
         source="user_id.first_name",
     )
@@ -127,4 +137,9 @@ class UserFollowersSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = UserFollowing
-        fields = ("user_id", "first_name", "last_name")
+        fields = (
+            "user_id",
+            "nickname",
+            "first_name",
+            "last_name",
+        )

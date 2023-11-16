@@ -1,6 +1,17 @@
+import os
+import uuid
+
 from django.contrib.auth.models import AbstractUser, BaseUserManager
+from django.template.defaultfilters import slugify
 from django.utils.translation import gettext as _
 from django.db import models
+
+
+def social_media_image_file_path(instance, filename):
+    _, extension = os.path.splitext(filename)
+    filename = f"{slugify(instance)}-{uuid.uuid4()}{extension}"
+
+    return os.path.join("uploads", "social_media", filename)
 
 
 class UserManager(BaseUserManager):
@@ -33,10 +44,15 @@ class UserManager(BaseUserManager):
 
 
 class User(AbstractUser):
+    nickname = models.CharField(
+        max_length=255,
+        null=True,
+        blank=True,
+    )
     avatar = models.ImageField(
         null=True,
         blank=True,
-        upload_to="images/avatar/",
+        upload_to=social_media_image_file_path,
     )
     lives_in = models. CharField(
         max_length=255,
