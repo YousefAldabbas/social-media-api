@@ -3,6 +3,7 @@ from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import get_object_or_404
+from rest_framework.pagination import PageNumberPagination
 from rest_framework.response import Response
 
 
@@ -16,7 +17,8 @@ from social_media.serializers import (
     CommentListSerializer,
     CommentDetailSerializer,
     PostImageSerializer,
-    CommentImageSerializer, LikeSerializer,
+    CommentImageSerializer,
+    LikeSerializer,
 )
 
 
@@ -25,11 +27,17 @@ class CategoryViewSet(viewsets.ModelViewSet):
     serializer_class = CategorySerializer
 
 
+class PostPagination(PageNumberPagination):
+    page_size = 10
+    max_page_size = 100
+
+
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.select_related("author", )
     serializer_class = PostSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["hashtag"]
+    pagination_class = PostPagination
 
     def get_serializer_class(self):
         if self.action == "list":
@@ -98,9 +106,15 @@ class PostViewSet(viewsets.ModelViewSet):
         serializer.save(author=self.request.user)
 
 
+class CommentPagination(PageNumberPagination):
+    page_size = 10
+    max_page_size = 100
+
+
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.select_related("author", "post", )
     serializer_class = CommentSerializer
+    pagination_class = PostPagination
 
     def get_serializer_class(self):
         if self.action == "list":
