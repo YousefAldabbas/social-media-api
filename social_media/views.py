@@ -36,7 +36,7 @@ class PostPagination(PageNumberPagination):
 
 
 class PostViewSet(viewsets.ModelViewSet):
-    queryset = Post.objects.select_related("author", )
+    queryset = Post.objects.prefetch_related("author", "category", )
     serializer_class = PostSerializer
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["hashtag"]
