@@ -1,6 +1,10 @@
 from django.urls import path, include
 from rest_framework import routers
-from rest_framework_simplejwt.views import TokenVerifyView, TokenRefreshView, TokenObtainPairView
+from rest_framework_simplejwt.views import (
+    TokenVerifyView,
+    TokenRefreshView,
+    TokenObtainPairView,
+)
 
 from user.views import (
     UserListView,
@@ -29,5 +33,3 @@ urlpatterns = [
     path("me/", ManageUserView.as_view(), name="manage"),
 ]
 app_name = "user"
-
-

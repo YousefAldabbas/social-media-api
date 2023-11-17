@@ -23,9 +23,9 @@ class UserListView(generics.ListAPIView):
 
     def get_queryset(self):
         queryset = self.queryset.annotate(
-                num_following=Count("following"),
-                num_followers=Count("followers"),
-            )
+            num_following=Count("following"),
+            num_followers=Count("followers"),
+        )
 
         return queryset
 
