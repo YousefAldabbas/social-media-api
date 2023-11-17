@@ -3,6 +3,8 @@ from django.http import Http404
 from rest_framework import generics, viewsets
 from rest_framework.response import Response
 from rest_framework.views import APIView
+from rest_framework import filters
+
 
 from user.models import User, UserFollowing
 from user.serializers import (
@@ -16,6 +18,8 @@ from user.serializers import (
 class UserListView(generics.ListAPIView):
     serializer_class = UserListSerializer
     queryset = User.objects.all()
+    filter_backends = [filters.SearchFilter]
+    search_fields = ["nickname", "lives_in"]
 
     def get_queryset(self):
         queryset = self.queryset.annotate(
