@@ -27,7 +27,7 @@ from social_media.serializers import (
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
-    permission_classes = IsAdminUser
+    permission_classes = (IsAdminUser, )
 
 
 class PostPagination(PageNumberPagination):
@@ -41,7 +41,7 @@ class PostViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["hashtag"]
     pagination_class = PostPagination
-    permission_classes = IsOwnerOrReadOnly
+    permission_classes = (IsOwnerOrReadOnly, )
 
     def get_serializer_class(self):
         if self.action == "list":
@@ -119,7 +119,7 @@ class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.select_related("author", "post", )
     serializer_class = CommentSerializer
     pagination_class = PostPagination
-    permission_classes = IsOwnerOrReadOnly
+    permission_classes = (IsOwnerOrReadOnly, )
 
     def get_serializer_class(self):
         if self.action == "list":
