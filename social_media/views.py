@@ -4,10 +4,12 @@ from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import get_object_or_404
 from rest_framework.pagination import PageNumberPagination
+from rest_framework.permissions import IsAdminUser
 from rest_framework.response import Response
 
 
 from social_media.models import Category, Post, Comment, Like
+from social_media.permissions import IsOwnerOrReadOnly
 from social_media.serializers import (
     CategorySerializer,
     PostSerializer,
@@ -25,6 +27,7 @@ from social_media.serializers import (
 class CategoryViewSet(viewsets.ModelViewSet):
     queryset = Category.objects.all()
     serializer_class = CategorySerializer
+    permission_classes = IsAdminUser
 
 
 class PostPagination(PageNumberPagination):
@@ -38,6 +41,7 @@ class PostViewSet(viewsets.ModelViewSet):
     filter_backends = [DjangoFilterBackend]
     filterset_fields = ["hashtag"]
     pagination_class = PostPagination
+    permission_classes = IsOwnerOrReadOnly
 
     def get_serializer_class(self):
         if self.action == "list":
@@ -115,6 +119,7 @@ class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.select_related("author", "post", )
     serializer_class = CommentSerializer
     pagination_class = PostPagination
+    permission_classes = IsOwnerOrReadOnly
 
     def get_serializer_class(self):
         if self.action == "list":
