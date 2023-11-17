@@ -1,8 +1,10 @@
+from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework import viewsets, status
 from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError
 from rest_framework.generics import get_object_or_404
 from rest_framework.response import Response
+
 
 from social_media.models import Category, Post, Comment, Like
 from social_media.serializers import (
@@ -26,6 +28,8 @@ class CategoryViewSet(viewsets.ModelViewSet):
 class PostViewSet(viewsets.ModelViewSet):
     queryset = Post.objects.select_related("author", )
     serializer_class = PostSerializer
+    filter_backends = [DjangoFilterBackend]
+    filterset_fields = ["hashtag"]
 
     def get_serializer_class(self):
         if self.action == "list":
