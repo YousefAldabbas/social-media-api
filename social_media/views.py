@@ -90,6 +90,9 @@ class PostViewSet(viewsets.ModelViewSet):
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)
+
 
 class CommentViewSet(viewsets.ModelViewSet):
     queryset = Comment.objects.select_related("author", "post", )
@@ -118,10 +121,5 @@ class CommentViewSet(viewsets.ModelViewSet):
 
         return Response(serializer.data, status=status.HTTP_200_OK)
 
-
-
-
-
-
-
-
+    def perform_create(self, serializer):
+        serializer.save(author=self.request.user)

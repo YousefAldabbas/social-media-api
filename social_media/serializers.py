@@ -38,7 +38,6 @@ class CommentSerializer(serializers.ModelSerializer):
         model = Comment
         fields = (
             "id",
-            "author",
             "created_at",
             "post",
             "content",
@@ -128,7 +127,6 @@ class PostSerializer(serializers.ModelSerializer):
         model = Post
         fields = (
             "id",
-            "author",
             "created_at",
             "category",
             "title",
