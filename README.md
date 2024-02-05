@@ -26,7 +26,6 @@ The RESTful API for a social media platform.
 - Users can like and unlike posts. 
 - Users can add comments to posts and view comments on posts.
 
-
 ## API Permissions:
 - Only authenticated users can perform actions such as creating posts, liking posts, and following/unfollowing users.
 - Users can update and delete their own posts and comments.

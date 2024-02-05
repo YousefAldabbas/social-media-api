@@ -20,8 +20,8 @@ router = routers.DefaultRouter()
 
 
 urlpatterns = [
-    path("", UserListView.as_view(), name="user-list"),
     path("", include(router.urls)),
+    path("", UserListView.as_view(), name="user-list"),
     path("<int:pk>/", UserDetailView.as_view(), name="user-detail"),
     path("register/", UserCreateView.as_view(), name="user-register"),
     path("<int:pk>/update/", UserUpdateView.as_view(), name="user-update"),
