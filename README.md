@@ -46,5 +46,4 @@ The RESTful API for a social media platform.
 - Get access token via: user/token
 
 ## BD structure
-
-![db_social_media.png](..%2F..%2F%D0%97%D0%BE%D0%B1%D1%80%D0%B0%D0%B6%D0%B5%D0%BD%D0%BD%D1%8F%2Fdb_social_media.png)
+![social_media](https://github.com/HalynaPetrova/social-media-api/assets/92261713/28cf588a-3243-4f36-97eb-6c96b603a617)
