@@ -3,6 +3,35 @@
 The RESTful API for a social media platform. 
 
 
+## Installation
+
+- Clone this repository
+```sh
+git clone https://github.com/YousefAldabbas/social-media-api
+```
+
+- Install dependencies
+```sh
+# create a virtual environment
+python3 -m venv venv
+
+# activate the virtual environment
+source venv/bin/activate
+
+# install dependencies
+pip install -r requirements.txt
+```
+
+- migrate the database
+```sh
+python manage.py migrate
+```
+
+- run the server
+```sh
+python manage.py runserver
+```
+
 ## User Registration and Authentication:
 
 - Users can register with their email and password to create an account.
@@ -35,15 +64,6 @@ The RESTful API for a social media platform.
 - The API well-documented with clear instructions on how to use each endpoint.
 - The documentation include sample API requests and responses for different endpoints.
 
-## How to install using GitHub
-
-- Clone this repository
-- Create venv: python -m venv venv
-- Activate venv: source venv/bin/activate
-- Install requirements: pip install -r requirements.txt
-- Run: python manage.py runserver
-- Create user via: user/register
-- Get access token via: user/token
 
 ## BD structure
 ![social_media](https://github.com/HalynaPetrova/social-media-api/assets/92261713/28cf588a-3243-4f36-97eb-6c96b603a617)
