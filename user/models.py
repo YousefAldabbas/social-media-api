@@ -83,7 +83,7 @@ class User(AbstractUser):
 
 
 class UserFollowing(models.Model):
-    user_id = models.ForeignKey(
+    user = models.ForeignKey(
         User,
         related_name="following",
         on_delete=models.CASCADE,
